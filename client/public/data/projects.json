@@ -1,0 +1,88 @@
+{
+  "projects": [
+    {
+      "id": "movie-generator",
+      "title": "Movie Generator App",
+      "description": "A React-based movie discovery application with dynamic filtering and modern UI",
+      "longDescription": "Built with React.js and HarperDB, this application allows users to discover movies with advanced filtering options. Features include real-time search, genre filtering, and responsive design.",
+      "image": "/assets/images/projects/React-App-1.png",
+      "images": ["/assets/images/projects/React-App-1.png"],
+      "technologies": ["React", "JavaScript", "HarperDB", "CSS3", "HTML5"],
+      "category": "Web Application",
+      "liveUrl": "https://shouravkumar21.github.io/harperdb-movies-generator/",
+      "githubUrl": "https://github.com/shouravkumar21/harperdb-movies-generator",
+      "featured": true,
+      "completedDate": "2023-12"
+    },
+    {
+      "id": "aer-agency",
+      "title": "Aer Agency Website",
+      "description": "Modern agency website with responsive design and smooth animations",
+      "longDescription": "A professional agency website built with modern web technologies featuring responsive design, smooth animations, and optimized performance.",
+      "image": "/assets/images/projects/aer-agency.png",
+      "images": ["/assets/images/projects/aer-agency.png"],
+      "technologies": ["HTML5", "CSS3", "JavaScript", "Bootstrap"],
+      "category": "Website",
+      "liveUrl": "https://banao-assignment3.vercel.app",
+      "githubUrl": "#",
+      "featured": true,
+      "completedDate": "2023-11"
+    },
+    {
+      "id": "joker-card",
+      "title": "Joker Card Design",
+      "description": "Interactive card design with CSS animations and modern UI elements",
+      "longDescription": "A creative card design project showcasing advanced CSS animations, hover effects, and modern UI design principles.",
+      "image": "/assets/images/projects/joker-card.png",
+      "images": ["/assets/images/projects/joker-card.png"],
+      "technologies": ["HTML5", "CSS3", "JavaScript"],
+      "category": "UI/UX Design",
+      "liveUrl": "https://banao-assignment2.vercel.app/",
+      "githubUrl": "#",
+      "featured": false,
+      "completedDate": "2023-10"
+    },
+    {
+      "id": "peaky-blinders",
+      "title": "Peaky Blinders Theme",
+      "description": "Dark themed website inspired by the Peaky Blinders series",
+      "longDescription": "A dark-themed website project inspired by the popular TV series, featuring modern design elements and smooth user interactions.",
+      "image": "/assets/images/projects/peaky-blinders.png",
+      "images": ["/assets/images/projects/peaky-blinders.png"],
+      "technologies": ["HTML5", "CSS3", "JavaScript", "SCSS"],
+      "category": "Theme Design",
+      "liveUrl": "https://techie-nine.vercel.app/",
+      "githubUrl": "#",
+      "featured": false,
+      "completedDate": "2023-09"
+    },
+    {
+      "id": "career-guide",
+      "title": "Career Guide Platform",
+      "description": "Educational platform for career guidance and skill development",
+      "longDescription": "A comprehensive career guidance platform built to help users explore different career paths and develop relevant skills.",
+      "image": "/assets/images/projects/career-guide.png",
+      "images": ["/assets/images/projects/career-guide.png"],
+      "technologies": ["React", "Node.js", "CSS3", "JavaScript"],
+      "category": "Web Application",
+      "liveUrl": "https://careerguide-blush.vercel.app/",
+      "githubUrl": "#",
+      "featured": true,
+      "completedDate": "2023-08"
+    },
+    {
+      "id": "portfolio-v1",
+      "title": "Portfolio Website v1",
+      "description": "Previous version of personal portfolio with clean design",
+      "longDescription": "The first version of my personal portfolio website featuring a clean, minimalist design and showcasing my early projects.",
+      "image": "/assets/images/projects/portfolio-v1.jpg",
+      "images": ["/assets/images/projects/portfolio-v1.jpg"],
+      "technologies": ["HTML5", "CSS3", "JavaScript"],
+      "category": "Portfolio",
+      "liveUrl": "#",
+      "githubUrl": "#",
+      "featured": false,
+      "completedDate": "2023-07"
+    }
+  ]
+}

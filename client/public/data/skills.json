@@ -1,0 +1,114 @@
+{
+  "skillCategories": [
+    {
+      "name": "Frontend Development",
+      "skills": [
+        {
+          "name": "HTML5",
+          "proficiency": 90,
+          "icon": "html",
+          "description": "Semantic markup and modern HTML5 features"
+        },
+        {
+          "name": "CSS3",
+          "proficiency": 85,
+          "icon": "css",
+          "description": "Advanced styling, animations, and responsive design"
+        },
+        {
+          "name": "JavaScript",
+          "proficiency": 80,
+          "icon": "javascript",
+          "description": "ES6+, DOM manipulation, and modern JavaScript"
+        },
+        {
+          "name": "React",
+          "proficiency": 75,
+          "icon": "react",
+          "description": "Component-based development and state management"
+        },
+        {
+          "name": "Tailwind CSS",
+          "proficiency": 85,
+          "icon": "tailwind",
+          "description": "Utility-first CSS framework for rapid development"
+        }
+      ]
+    },
+    {
+      "name": "Frameworks & Libraries",
+      "skills": [
+        {
+          "name": "Bootstrap",
+          "proficiency": 90,
+          "icon": "bootstrap",
+          "description": "Responsive grid system and component library"
+        },
+        {
+          "name": "jQuery",
+          "proficiency": 70,
+          "icon": "jquery",
+          "description": "DOM manipulation and event handling"
+        },
+        {
+          "name": "SCSS/Sass",
+          "proficiency": 75,
+          "icon": "sass",
+          "description": "CSS preprocessing and advanced styling"
+        }
+      ]
+    },
+    {
+      "name": "Tools & Technologies",
+      "skills": [
+        {
+          "name": "Git",
+          "proficiency": 80,
+          "icon": "git",
+          "description": "Version control and collaborative development"
+        },
+        {
+          "name": "Figma",
+          "proficiency": 70,
+          "icon": "figma",
+          "description": "UI/UX design and prototyping"
+        },
+        {
+          "name": "Canva",
+          "proficiency": 85,
+          "icon": "canva",
+          "description": "Graphic design and visual content creation"
+        },
+        {
+          "name": "VS Code",
+          "proficiency": 90,
+          "icon": "vscode",
+          "description": "Code editing and development environment"
+        }
+      ]
+    },
+    {
+      "name": "Design & UX",
+      "skills": [
+        {
+          "name": "Responsive Design",
+          "proficiency": 90,
+          "icon": "responsive",
+          "description": "Mobile-first and cross-device compatibility"
+        },
+        {
+          "name": "UI/UX Design",
+          "proficiency": 75,
+          "icon": "design",
+          "description": "User interface and experience design"
+        },
+        {
+          "name": "Web Accessibility",
+          "proficiency": 70,
+          "icon": "accessibility",
+          "description": "WCAG compliance and inclusive design"
+        }
+      ]
+    }
+  ]
+}
