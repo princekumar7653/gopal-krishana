@@ -101,7 +101,7 @@ const AboutSection: React.FC = () => {
             {/* CTA Button */}
             <div className="pt-6">
               <a 
-                href="/assets/gopal.pdf" 
+                href="/assets/Gopal2.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 group"

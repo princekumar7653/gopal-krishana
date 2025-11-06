@@ -25,6 +25,7 @@ const ContactSection: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitErrorMessage, setSubmitErrorMessage] = useState<string | null>(null);
 
   const contactInfo = [
     {
@@ -105,12 +106,31 @@ const ContactSection: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      setSubmitErrorMessage(null);
+      const response = await fetch('http://localhost:3003/api/visitor/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const body = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        const message = (body && (body.error || body.message || body.details)) || response.statusText || 'Failed to send message';
+        console.error('Server responded with error:', response.status, message, body);
+        setSubmitErrorMessage(typeof message === 'string' ? message : JSON.stringify(message));
+        setSubmitStatus('error');
+        return;
+      }
+
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
+    } catch (error: any) {
+      console.error('Error sending message:', error);
+      setSubmitErrorMessage(error && (error.message || String(error)));
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -122,16 +142,16 @@ const ContactSection: React.FC = () => {
     <section 
       id="contact" 
       ref={sectionRef}
-      className={`py-20 relative transition-colors duration-500 ${
+      className={`py-12 sm:py-16 md:py-20 relative transition-colors duration-500 ${
         isDark ? 'bg-slate-900' : 'bg-gray-50'
       }`}
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${
+        <div className={`text-center mb-8 sm:mb-12 md:mb-16 transition-all duration-1000 ${
           isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 bg-clip-text text-transparent mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 bg-clip-text text-transparent mb-4 sm:mb-6">
             Get In Touch
           </h2>
           <p className={`text-xl max-w-3xl mx-auto ${
@@ -141,26 +161,26 @@ const ContactSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
           {/* Contact Info */}
-          <div className={`space-y-8 transition-all duration-1000 delay-200 ${
+          <div className={`space-y-6 sm:space-y-8 transition-all duration-1000 delay-200 ${
             isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             {contactInfo.map((info) => (
               <div 
                 key={info.title}
-                className={`backdrop-blur-md p-6 rounded-2xl border hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105 ${
+                className={`backdrop-blur-md p-4 sm:p-6 rounded-xl sm:rounded-2xl border hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105 ${
                   isDark 
                     ? 'bg-slate-800/50 border-slate-700/50' 
                     : 'bg-white/90 border-gray-200/50 shadow-lg'
                 }`}
               >
-                <div className="flex items-center space-x-4">
-                  <div className={`w-12 h-12 ${info.color} rounded-lg flex items-center justify-center shadow-lg`}>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 ${info.color} rounded-lg flex items-center justify-center shadow-lg shrink-0`}>
                     {info.icon}
                   </div>
-                  <div>
-                    <h3 className={`text-lg font-semibold ${
+                  <div className="w-full">
+                    <h3 className={`text-base sm:text-lg font-semibold ${
                       isDark ? 'text-white' : 'text-gray-900'
                     }`}>{info.title}</h3>
                     {info.link ? (
@@ -189,14 +209,14 @@ const ContactSection: React.FC = () => {
               <h3 className={`text-lg font-semibold mb-4 ${
                 isDark ? 'text-white' : 'text-gray-900'
               }`}>Follow Me</h3>
-              <div className="flex space-x-4">
+              <div className="flex flex-wrap gap-4">
                 {socialLinks.map((social) => (
                   <a
                     key={social.name}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg group hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 ${
+                    className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg group hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 ${
                       isDark ? 'bg-slate-700' : 'bg-gray-200'
                     }`}
                     title={social.name}
@@ -224,19 +244,19 @@ const ContactSection: React.FC = () => {
                 Prefer a quick chat? Feel free to reach out directly via email or phone. 
                 I typically respond within 24 hours.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <a 
                   href="mailto:chanchalgopalkrishna42@gmail.com"
-                  className="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  className="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors w-full sm:w-auto"
                 >
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                   </svg>
                   Send Email
                 </a>
                 <a 
                   href="tel:+917667765385"
-                  className="inline-flex items-center bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  className="inline-flex items-center justify-center bg-purple-500 hover:bg-purple-600 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors w-full sm:w-auto"
                 >
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
@@ -251,23 +271,23 @@ const ContactSection: React.FC = () => {
           <div className={`transition-all duration-1000 delay-400 ${
             isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <form onSubmit={handleSubmit} className={`backdrop-blur-md p-8 rounded-2xl border space-y-6 ${
+            <form onSubmit={handleSubmit} className={`backdrop-blur-md p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border space-y-4 sm:space-y-6 ${
               isDark 
                 ? 'bg-slate-800/50 border-slate-700/50' 
                 : 'bg-white/90 border-gray-200/50 shadow-lg'
             }`}>
               {/* Form Header */}
-              <div className="text-center mb-6">
-                <h3 className={`text-2xl font-bold mb-2 ${
+              <div className="text-center mb-4 sm:mb-6">
+                <h3 className={`text-xl sm:text-2xl font-bold mb-2 ${
                   isDark ? 'text-white' : 'text-gray-900'
                 }`}>Send Message</h3>
                 <p className={isDark ? 'text-slate-400' : 'text-gray-600'}>Fill out the form below and I'll get back to you soon</p>
               </div>
 
               {/* Name and Email */}
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <label htmlFor="name" className={`block text-sm font-medium mb-2 ${
+                  <label htmlFor="name" className={`block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 ${
                     isDark ? 'text-slate-300' : 'text-gray-700'
                   }`}>
                     Name *
@@ -279,7 +299,7 @@ const ContactSection: React.FC = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 ${
+                    className={`w-full px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base ${
                       isDark 
                         ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400' 
                         : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
@@ -360,11 +380,11 @@ const ContactSection: React.FC = () => {
               <button 
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 disabled:from-slate-600 disabled:to-slate-600 text-white py-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 disabled:cursor-not-allowed flex items-center justify-center"
+                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 disabled:from-slate-600 disabled:to-slate-600 text-white py-3 sm:py-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 disabled:cursor-not-allowed flex items-center justify-center"
               >
                 {isSubmitting ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -390,6 +410,9 @@ const ContactSection: React.FC = () => {
               {submitStatus === 'error' && (
                 <div className="text-center p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
                   <p className="text-red-400">❌ Failed to send message. Please try again or contact me directly.</p>
+                  {submitErrorMessage && (
+                    <p className="mt-2 text-sm text-red-300">Details: {submitErrorMessage}</p>
+                  )}
                 </div>
               )}
             </form>

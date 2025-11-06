@@ -115,9 +115,9 @@ function App() {
 
             {/* CTA Button, Theme Toggle & Mobile Menu Toggle */}
             <div className="flex items-center space-x-4">
-              <a href="/assets/gopal.pdf" target="_blank" rel="noopener noreferrer"
+              <a href="/assets/Gopal2.pdf" target="_blank" rel="noopener noreferrer"
                 className="hidden lg:inline-flex bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-2 rounded-full transition-all duration-300">
-                Download CV
+                See My CV
               </a>
 
               {/* Theme Toggle */}
@@ -174,9 +174,9 @@ function App() {
                 <button onClick={() => scrollToSection('contact')} className="block w-full text-left py-3 px-4 rounded-lg hover:bg-slate-700 transition-colors">Contact</button>
 
                 <div className="pt-4 border-t border-slate-700">
-                  <a href="/assets/gopal.pdf" target="_blank" rel="noopener noreferrer"
+                  <a href="/assets/Gopal2.pdf" target="_blank" rel="noopener noreferrer"
                     className="block w-full text-center bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white py-3 rounded-lg transition-colors">
-                    Download CV
+                    See My CV
                   </a>
                 </div>
               </nav>

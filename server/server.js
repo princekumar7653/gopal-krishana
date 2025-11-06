@@ -281,6 +281,104 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+    // Contact form endpoint
+    app.post('/api/visitor/contact', async (req, res) => {
+        // Log incoming payload for debugging
+        console.log('[/api/visitor/contact] incoming body:', JSON.stringify(req.body));
+
+        try {
+            const { name, email, subject, message } = req.body;
+
+            if (!name || !email || !subject || !message) {
+                console.log('[/api/visitor/contact] validation failed - missing fields', { name, email, subject, message });
+                return res.status(400).json({ error: 'All fields are required' });
+            }
+
+            const transporter = createEmailTransporter();
+
+            // Send email
+            const mailOptions = {
+                from: `"${name}" <${process.env.EMAIL_USER}>`,
+                to: process.env.NOTIFICATION_EMAIL || process.env.EMAIL_USER,
+                subject: `Portfolio Contact: ${subject}`,
+                html: `
+                    <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto;">
+                        <h2 style="color: #0ea5e9;">New Contact Form Submission</h2>
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                            <p><strong>Name:</strong> ${name}</p>
+                            <p><strong>Email:</strong> ${email}</p>
+                            <p><strong>Subject:</strong> ${subject}</p>
+                            <div style="margin-top: 20px;">
+                                <h3>Message:</h3>
+                                <p style="white-space: pre-wrap;">${message}</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                replyTo: email
+            };
+
+            const info = await transporter.sendMail(mailOptions);
+            console.log('[/api/visitor/contact] email sent:', info && info.messageId);
+
+            // Also log the contact in visitors.json
+            await logVisitor({
+                name,
+                email,
+                purpose: subject,
+                message,
+                timestamp: new Date().toISOString(),
+                type: 'contact'
+            });
+
+            res.json({ 
+                success: true, 
+                message: 'Message sent successfully' 
+            });
+        } catch (error) {
+            console.error('Error sending contact email:', error && (error.stack || error.message || error));
+            // Return helpful error message in development
+            res.status(500).json({ 
+                error: 'Failed to send message',
+                details: process.env.NODE_ENV === 'development' ? (error && (error.stack || error.message)) : undefined
+            });
+        }
+    });
+
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+    try {
+        const { name, email, subject, message } = req.body;
+
+        if (!name || !email || !subject || !message) {
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+
+        const transporter = createEmailTransporter();
+
+        const mailOptions = {
+            from: `"${name}" <${process.env.EMAIL_USER}>`,
+            to: process.env.EMAIL_USER,
+            subject: `Portfolio Contact: ${subject}`,
+            html: `
+                <h2>New Contact Form Submission</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Subject:</strong> ${subject}</p>
+                <h3>Message:</h3>
+                <p>${message}</p>
+            `,
+            replyTo: email
+        };
+
+        await transporter.sendMail(mailOptions);
+        res.json({ success: true, message: 'Email sent successfully' });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ error: 'Failed to send email' });
+    }
+});
+
 app.post('/api/visitor', async (req, res) => {
     try {
         // Validate input
