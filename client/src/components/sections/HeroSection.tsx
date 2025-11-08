@@ -1,10 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { PERSONAL_INFO, SOCIAL_LINKS } from '../../utils/constants';
 import { useTheme } from '../../contexts/ThemeContext';
 import type { HeroSectionProps } from '../../types';
 
-const HeroSection: React.FC<HeroSectionProps> = ({ personalInfo = PERSONAL_INFO }) => {
+const TYPING_TEXTS = [
+    'Frontend Developer',
+    'UI/UX Designer',
+    'React Specialist',
+    'Web Developer'
+] as const;
+
+const HeroSection: React.FC<HeroSectionProps> = React.memo(({ personalInfo = PERSONAL_INFO }) => {
     const { isDark } = useTheme();
     const [sectionRef] = useIntersectionObserver({ threshold: 0.2 });
     const contentRef = useRef<HTMLDivElement>(null);
@@ -12,16 +19,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ personalInfo = PERSONAL_INFO 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);
 
-    const texts = [
-        'Frontend Developer',
-        'UI/UX Designer',
-        'React Specialist',
-        'Web Developer'
-    ];
-
     // Simple typing animation
     useEffect(() => {
-        const currentText = texts[currentIndex];
+        const currentText = TYPING_TEXTS[currentIndex];
         const timeout = setTimeout(() => {
             if (!isDeleting) {
                 if (typedText.length < currentText.length) {
@@ -34,15 +34,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ personalInfo = PERSONAL_INFO 
                     setTypedText(typedText.slice(0, -1));
                 } else {
                     setIsDeleting(false);
-                    setCurrentIndex((prev) => (prev + 1) % texts.length);
+                    setCurrentIndex((prev) => (prev + 1) % TYPING_TEXTS.length);
                 }
             }
         }, isDeleting ? 50 : 100);
 
         return () => clearTimeout(timeout);
-    }, [typedText, currentIndex, isDeleting, texts]);
+    }, [typedText, currentIndex, isDeleting]);
 
-    const scrollToSection = (sectionId: string) => {
+    const scrollToSection = useCallback((sectionId: string) => {
         const element = document.getElementById(sectionId);
         if (element) {
             const headerHeight = 80;
@@ -52,9 +52,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ personalInfo = PERSONAL_INFO 
                 behavior: 'smooth'
             });
         }
-    };
+    }, []);
 
-    const getSocialIcon = (platform: string) => {
+    const getSocialIcon = useCallback((platform: string) => {
         switch (platform.toLowerCase()) {
             case 'github':
                 return (
@@ -83,7 +83,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ personalInfo = PERSONAL_INFO 
             default:
                 return null;
         }
-    };
+    }, []);
 
     return (
         <section
@@ -133,7 +133,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ personalInfo = PERSONAL_INFO 
                                     ? 'bg-green-500/20 border border-green-500/30 text-green-400'
                                     : 'bg-green-100 border border-green-200 text-green-600'
                                     }`}>
-                                    ✨ 50+ Projects Delivered
+                                    ✨ 2+ Projects Delivered
                                 </span>
                             </div>
                         </div>
@@ -234,6 +234,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ personalInfo = PERSONAL_INFO 
             </div>
         </section>
     );
-};
+});
+
+HeroSection.displayName = 'HeroSection';
 
 export default HeroSection;

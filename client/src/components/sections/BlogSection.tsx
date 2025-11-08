@@ -1,4 +1,5 @@
 import React from 'react';
+import { PERSONAL_INFO } from '../../utils/constants';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 interface BlogPost {
@@ -27,7 +28,7 @@ const BlogSection: React.FC = () => {
       category: 'Development',
       readTime: '5 min read',
       date: 'December 15, 2023',
-      author: 'Prince Kumar',
+      author: 'Gopal Krishna Chanchal',
       image: '/assets/images/projects/blog-frontend.jpg',
       link: '#'
     },
@@ -38,7 +39,7 @@ const BlogSection: React.FC = () => {
       category: 'Design',
       readTime: '7 min read',
       date: 'November 28, 2023',
-      author: 'Prince Kumar',
+      author: 'Gopal Krishna Chanchal',
       image: '/assets/images/projects/blog-design.jpg',
       link: '#'
     },
@@ -49,7 +50,7 @@ const BlogSection: React.FC = () => {
       category: 'React',
       readTime: '8 min read',
       date: 'October 20, 2023',
-      author: 'Prince Kumar',
+      author: 'Gopal Krishna Chanchal',
       image: '/assets/images/projects/blog-react.jpg',
       link: '#'
     }
@@ -143,7 +144,7 @@ const BlogSection: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">P</span>
+                      <span className="text-white font-bold text-sm">{(PERSONAL_INFO && PERSONAL_INFO.name && PERSONAL_INFO.name.charAt(0)) || 'G'}</span>
                     </div>
                     <span className="text-slate-400 text-sm">{post.author}</span>
                   </div>

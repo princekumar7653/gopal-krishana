@@ -103,11 +103,11 @@ const PortfolioSection: React.FC = () => {
       'HTML': 'bg-orange-500',
       'CSS': 'bg-blue-500',
       'Tailwind': 'bg-teal-500',
-      'Figma': 'bg-purple-500',
-      'GSAP': 'bg-green-500',
       'UI/UX': 'bg-pink-500',
-      'Canva': 'bg-indigo-500',
-      'Design': 'bg-rose-500'
+      'Node.js': 'bg-green-500',
+      'express': 'bg-gray-700',
+      'mongoDB': 'bg-green-700',
+      'mysql': 'bg-blue-800',
     };
     return colors[tech] || 'bg-slate-500';
   };

@@ -8,15 +8,7 @@ interface Skill {
   icon: string;
 }
 
-const SkillsSection: React.FC = () => {
-  const [sectionRef, isIntersecting] = useIntersectionObserver({
-    threshold: 0.1,
-    triggerOnce: true
-  });
-
-  const [animatedLevels, setAnimatedLevels] = useState<{ [key: string]: number }>({});
-
-  const skills: Skill[] = [
+const SKILLS_DATA: Skill[] = [
     { name: 'HTML5', level: 90, color: 'bg-orange-500', icon: 'H' },
     { name: 'CSS3', level: 85, color: 'bg-blue-500', icon: 'C' },
     { name: 'JavaScript', level: 80, color: 'bg-yellow-500', icon: 'JS' },
@@ -24,24 +16,34 @@ const SkillsSection: React.FC = () => {
     { name: 'Bootstrap', level: 90, color: 'bg-purple-500', icon: 'B' },
     { name: 'Tailwind CSS', level: 85, color: 'bg-teal-500', icon: 'T' },
     { name: 'TypeScript', level: 70, color: 'bg-blue-600', icon: 'TS' },
-    { name: 'Git', level: 75, color: 'bg-red-500', icon: 'G' }
-  ];
+    { name: 'Git', level: 75, color: 'bg-red-500', icon: 'G' },
+    {name: 'node.js', level: 65, color: 'bg-green-500', icon: 'N' },
+    {name: 'express', level: 40, color: 'bg-gray-700', icon: 'E' },
+    {name: 'mongoDB', level: 40, color: 'bg-green-700', icon: 'M' },
+    {name: 'mysql', level: 70, color: 'bg-blue-800', icon: 'MY' }
+];
 
-  const tools = [
+const TOOLS_DATA = [
     { name: 'VS Code', icon: '💻' },
-    { name: 'Figma', icon: '🎨' },
-    { name: 'Canva', icon: '🖌️' },
     { name: 'GitHub', icon: '🐙' },
     { name: 'Vercel', icon: '▲' },
     { name: 'Netlify', icon: '🌐' }
-  ];
+];
+
+const SkillsSection: React.FC = React.memo(() => {
+  const [sectionRef, isIntersecting] = useIntersectionObserver({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+
+  const [animatedLevels, setAnimatedLevels] = useState<{ [key: string]: number }>({});
 
   // Animate progress bars when section comes into view
   useEffect(() => {
     if (isIntersecting) {
       const timer = setTimeout(() => {
         const newLevels: { [key: string]: number } = {};
-        skills.forEach(skill => {
+        SKILLS_DATA.forEach(skill => {
           newLevels[skill.name] = skill.level;
         });
         setAnimatedLevels(newLevels);
@@ -49,7 +51,7 @@ const SkillsSection: React.FC = () => {
 
       return () => clearTimeout(timer);
     }
-  }, [isIntersecting, skills]);
+  }, [isIntersecting]);
 
   return (
     <section 
@@ -72,7 +74,7 @@ const SkillsSection: React.FC = () => {
 
         {/* Skills Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {skills.map((skill, index) => (
+          {SKILLS_DATA.map((skill, index) => (
             <div 
               key={skill.name}
               className={`bg-slate-800/50 backdrop-blur-md p-6 rounded-2xl text-center border border-slate-700/50 hover:border-blue-500/50 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/10 ${
@@ -114,7 +116,7 @@ const SkillsSection: React.FC = () => {
           <h3 className="text-2xl font-bold text-white text-center mb-8">Tools & Technologies</h3>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {tools.map((tool) => (
+            {TOOLS_DATA.map((tool) => (
               <div 
                 key={tool.name}
                 className="bg-slate-800/50 backdrop-blur-md p-4 rounded-xl text-center border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105 group"
@@ -183,6 +185,8 @@ const SkillsSection: React.FC = () => {
       </div>
     </section>
   );
-};
+});
+
+SkillsSection.displayName = 'SkillsSection';
 
 export default SkillsSection;

@@ -17,4 +17,25 @@ export default defineConfig({
       '@assets': path.resolve(__dirname, './src/assets'),
     },
   },
+  build: {
+    // Enable source maps for production debugging
+    sourcemap: true,
+    // Optimize chunk size
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        // Manual chunks for better caching
+        manualChunks: {
+          // React vendor chunk
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          // Redux vendor chunk
+          'redux-vendor': ['@reduxjs/toolkit', 'react-redux'],
+          // Animation vendor chunk
+          'animation-vendor': ['gsap'],
+        },
+      },
+    },
+    // Minification (using esbuild, which is faster and built-in)
+    minify: 'esbuild',
+  },
 })

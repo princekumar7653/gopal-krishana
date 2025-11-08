@@ -1,4 +1,5 @@
 import React from 'react';
+import { PERSONAL_INFO } from '../../utils/constants';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { useTheme } from '../../contexts/ThemeContext';
 
@@ -87,10 +88,10 @@ const Footer: React.FC = () => {
           }`}>
             <div className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">P</span>
+                <span className="text-white font-bold text-xl">{(PERSONAL_INFO && PERSONAL_INFO.name && PERSONAL_INFO.name.charAt(0)) || 'G'}</span>
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 bg-clip-text text-transparent">
-                Prince Kumar
+                {PERSONAL_INFO?.name || 'Gopal Krishna Chanchal'}
               </span>
             </div>
             <p className={`leading-relaxed ${
@@ -221,7 +222,7 @@ const Footer: React.FC = () => {
           <p className={`text-sm ${
             isDark ? 'text-slate-400' : 'text-gray-500'
           }`}>
-            © 2024 Prince Kumar. All rights reserved.
+            © 2024 Gopal Krishna Chanchal. All rights reserved.
           </p>
           <p className={`text-sm mt-4 md:mt-0 flex items-center space-x-1 ${
             isDark ? 'text-slate-400' : 'text-gray-500'

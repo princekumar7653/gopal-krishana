@@ -33,8 +33,8 @@ const AboutSection: React.FC = () => {
   ];
 
   const stats = [
-    { number: '2+', label: 'Years Experience' },
-    { number: '50+', label: 'Projects Completed' },
+    { number: '6', label: 'Month Experience' },
+    { number: '2+', label: 'Projects Completed' },
     { number: '98%', label: 'Client Satisfaction' },
     { number: '24/7', label: 'Support Available' }
   ];
@@ -58,7 +58,7 @@ const AboutSection: React.FC = () => {
           <p className={`text-xl max-w-3xl mx-auto ${
             isDark ? 'text-slate-400' : 'text-gray-600'
           }`}>
-            I am Prince Kumar, a seasoned frontend developer with over 2 years of hands-on experience in creating modern, responsive web applications.
+            I am Gopal Krishna Chanchal, a seasoned frontend developer with over 6 Month of hands-on experience in creating modern, responsive web applications.
           </p>
         </div>
 
@@ -71,7 +71,7 @@ const AboutSection: React.FC = () => {
               isDark ? 'text-slate-300' : 'text-gray-700'
             }`}>
               Proficient in HTML, CSS, Bootstrap, JavaScript, and React, I am well-versed in crafting dynamic and visually appealing web interfaces. 
-              Additionally, I am familiar with design tools such as Canva and Figma.
+              My expertise extends to utilizing modern frameworks and libraries to build scalable and maintainable codebases.
             </p>
 
             <p className={`text-lg leading-relaxed ${
@@ -101,7 +101,7 @@ const AboutSection: React.FC = () => {
             {/* CTA Button */}
             <div className="pt-6">
               <a 
-                href="/assets/Gopal2.pdf" 
+                href="/assets/Gopal_front_end_developer_resume.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 group"

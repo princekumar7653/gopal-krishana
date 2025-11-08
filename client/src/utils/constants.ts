@@ -115,7 +115,7 @@ export const NAV_ITEMS: NavItem[] = [
 
 // Personal Information
 export const PERSONAL_INFO = {
-  name: 'Prince Kumar',
+  name: 'Gopal Krishna Chanchal',
   title: 'Modern Frontend Developer',
   description: 'Transforming Ideas into Digital Reality. I craft stunning, high-performance web applications that drive business growth and user engagement. Specializing in modern React ecosystems, responsive design, and cutting-edge animations.',
   image: '/assets/images/princek.jfif',
